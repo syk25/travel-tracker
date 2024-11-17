@@ -40,8 +40,32 @@ app.get("/", async (req, res) => {
     );
 });
 
-app.post("/add", (req, res) => {
-    res.render("index", { total, countries });
+app.post("/add", async (req, res) => {
+    const input = req.body.country;
+    console.log(input);
+
+    try {
+        const result = await db.query(
+            `select country_code from countries where country_name = $1`,
+            [input] // SQL 인젝션 방지를 위해 파라미터화된 쿼리 사용
+        );
+
+        if (result.rows.length > 0) {
+            const country_code = result.rows[0].country_code;
+
+            await db.query(
+                `INSERT INTO visited_countries(country_code) values($1)`,
+                [country_code]
+            );
+
+            res.redirect("/");
+        } else {
+            res.status(404).send("Country not found");
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 app.listen(port, () => {
