@@ -1,9 +1,7 @@
 ## Travel-tracker
 여행한 나라를 기록하기
 
-
-https://github.com/user-attachments/assets/b119bde1-aca7-4ab0-baed-f161e3a56ad7
-
+https://github.com/user-attachments/assets/1946cee9-5173-4a9d-ad61-5d65dc42a350
 
 ## 사용기술
 - FrontEnd: EJS
@@ -26,3 +24,10 @@ https://github.com/user-attachments/assets/b119bde1-aca7-4ab0-baed-f161e3a56ad7
     http://localhost:3000
    ```
 6. 나라이름 입력(ex. japan, china, brazil 등)
+
+## 추가하면 좋을 기능들
+- 클릭으로 여러 나라를 한번에 선택하는 기능
+- 한번에 선택 후 방문한 나라를 저장하는 기능
+- 다녀 온 나라를 삭제하는 기능
+- 나라 이름들을 목록으로 보여주는 기능
+- 마우스로 위치 호버링 시 나라 이름을 보여주는 기능
