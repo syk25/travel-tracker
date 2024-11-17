@@ -21,8 +21,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(logger);
 
+let countries = null;
+let total = 0;
+
 app.get("/", async (req, res) => {
-    let total = null;
     await db.query(
         "SELECT country_code FROM visited_countries",
         (err, result) => {
@@ -31,7 +33,7 @@ app.get("/", async (req, res) => {
                 res.status(500).send("Internal Server error");
             } else {
                 total = result.rows.length;
-                let countries = result.rows
+                countries = result.rows
                     .map((country) => country.country_code)
                     .join(",");
                 res.render("index", { total, countries });
@@ -42,7 +44,6 @@ app.get("/", async (req, res) => {
 
 app.post("/add", async (req, res) => {
     const input = req.body.country;
-    console.log(input);
 
     try {
         const result = await db.query(
@@ -60,11 +61,12 @@ app.post("/add", async (req, res) => {
 
             res.redirect("/");
         } else {
-            res.status(404).send("Country not found");
+            let error = "Country does not exist, try again";
+            res.render("index", { error, total, countries });
         }
     } catch (err) {
-        console.error(err);
-        res.status(500).send("Internal Server Error");
+        let error = "Country has already been added. Try again.";
+        res.render("index", { error, total, countries });
     }
 });
 
