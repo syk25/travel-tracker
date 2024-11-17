@@ -28,6 +28,9 @@ https://github.com/user-attachments/assets/dbcea186-f84b-4f68-b558-cfff8b2c0432
    ```
 6. 나라이름 입력(ex. japan, china, brazil 등)
 
+## 회고
+https://gyht.tistory.com/396
+
 ## 추가하면 좋을 기능들
 - 클릭으로 여러 나라를 한번에 선택하는 기능
 - 한번에 선택 후 방문한 나라를 저장하는 기능
