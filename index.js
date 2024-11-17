@@ -14,45 +14,7 @@ const db = new pg.Client({
     port: 5432,
 });
 
-let the_countries = [];
-let countries = null;
-let total = null;
-let country_list = null;
-let countryListNameToCode = [];
-function transformCountryList(countryList) {
-    return Object.fromEntries(
-        countryList.map(({ country_name, country_code }) => [
-            country_name.toLowerCase(),
-            country_code,
-        ])
-    );
-}
-
 db.connect();
-
-db.query("SELECT country_code FROM visited_countries", (err, res) => {
-    if (err) {
-        console.error(err);
-    } else {
-        countries = res.rows;
-        the_countries = countries;
-        total = countries.length;
-        const result = countries.map((item) => item.country_code).join(",");
-        countries = result;
-    }
-    console.log(the_countries, countries, total);
-});
-
-db.query("SELECT country_code, country_name FROM countries", (err, res) => {
-    if (err) {
-        console.error(err);
-    } else {
-        country_list = res.rows;
-        countryListNameToCode = transformCountryList(country_list);
-    }
-    // console.log(countryListNameToCode);
-    db.end();
-});
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -60,18 +22,25 @@ app.use(express.static("public"));
 app.use(logger);
 
 app.get("/", async (req, res) => {
-    res.render("index", { total, countries });
+    let total = null;
+    await db.query(
+        "SELECT country_code FROM visited_countries",
+        (err, result) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send("Internal Server error");
+            } else {
+                total = result.rows.length;
+                let countries = result.rows
+                    .map((country) => country.country_code)
+                    .join(",");
+                res.render("index", { total, countries });
+            }
+        }
+    );
 });
 
 app.post("/add", (req, res) => {
-    const currentCountry = req.body.country.toLowerCase();
-    console.log(currentCountry);
-    const newCode = countryListNameToCode[currentCountry];
-    console.log(newCode);
-    // 나라를 발견하지 못했을 때의 예외처리도 필요함
-    // 나라를 검색하지 못했는데도 불구하고 추가한 나라의 수가 증가함
-    countries = [countries, newCode].join(",");
-    total += 1;
     res.render("index", { total, countries });
 });
 
