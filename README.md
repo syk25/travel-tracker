@@ -1,6 +1,10 @@
 ## Travel-tracker
 여행한 나라를 기록하기
 
+
+https://github.com/user-attachments/assets/b119bde1-aca7-4ab0-baed-f161e3a56ad7
+
+
 ## 사용기술
 - FrontEnd: EJS
 - BackEnd: Node.js
