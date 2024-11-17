@@ -1,7 +1,12 @@
+
+https://github.com/user-attachments/assets/a859890e-7d41-44bb-9522-b410017f3135
 ## Travel-tracker
 여행한 나라를 기록하기
 
-https://github.com/user-attachments/assets/1946cee9-5173-4a9d-ad61-5d65dc42a350
+https://github.com/user-attachments/assets/a11fbb35-e7cd-4742-85c6-657c73d3ce1c
+
+https://github.com/user-attachments/assets/dbcea186-f84b-4f68-b558-cfff8b2c0432
+
 
 ## 사용기술
 - FrontEnd: EJS
