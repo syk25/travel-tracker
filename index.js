@@ -47,8 +47,8 @@ app.post("/add", async (req, res) => {
 
     try {
         const result = await db.query(
-            `select country_code from countries where country_name = $1`,
-            [input] // SQL 인젝션 방지를 위해 파라미터화된 쿼리 사용
+            `select country_code from countries where Lower(country_name) like '%' || $1 || '%';`,
+            [input.toLowerCase()] // SQL 인젝션 방지를 위해 파라미터화된 쿼리 사용
         );
 
         if (result.rows.length > 0) {
