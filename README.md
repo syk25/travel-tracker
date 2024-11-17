@@ -1,5 +1,3 @@
-
-https://github.com/user-attachments/assets/a859890e-7d41-44bb-9522-b410017f3135
 ## Travel-tracker
 여행한 나라를 기록하기
 
